@@ -13,7 +13,7 @@ public class SMenu {
         Scanner scanner = new Scanner(System.in);
         int soThuTuCoffee;
         do {
-            soThuTuCoffee = coffeeMenu.chonSoThuTuCoffe(scanner);
+            soThuTuCoffee = coffeeMenu.chonSoThuTuCoffee(scanner);
             if (soThuTuCoffee == coffeeMenu.getCoffeeMenu().size()) {
                 System.out.println("Ngung dat");
                 break;
