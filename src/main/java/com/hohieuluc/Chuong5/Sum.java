@@ -7,12 +7,12 @@ public class Sum {
         int a;
         int b;
 
-        try (Scanner scanner = new Scanner(System.in)) {
-            System.out.println("Nhap so a: ");
-            a = scanner.nextInt();
-            System.out.println("Nhap so b: ");
-            b = scanner.nextInt();
-        }
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Nhap so a: ");
+        a = scanner.nextInt();
+        System.out.println("Nhap so b: ");
+        b = scanner.nextInt();
+        scanner.close();
 
         // print sum, sub, mul, div, mod
         System.out.println("Tong: " + (a + b));
