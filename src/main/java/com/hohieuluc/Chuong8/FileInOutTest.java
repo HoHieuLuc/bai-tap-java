@@ -140,12 +140,9 @@ public class FileInOutTest {
     public void deleteCustomerByCode(String maKhachHang) throws IOException {
         ArrayList<Customer> customers = this.getCustomersFromFile();
 
-        ArrayList<Customer> customersFiltered = (ArrayList<Customer>) customers
-                .stream()
-                .filter(customer -> !customer.getMaKhachHang().equals(maKhachHang))
-                .collect(Collectors.toList());
+        customers.removeIf(customer -> customer.getMaKhachHang().equals(maKhachHang));
 
-        this.writeCustomers(customersFiltered);
+        this.writeCustomers(customers);
     }
 
     public void increaseTurnover(String maKhachHang, long sum) throws IOException {
