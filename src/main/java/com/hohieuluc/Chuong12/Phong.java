@@ -6,9 +6,9 @@ public abstract class Phong {
     private HopDong hopDong;
     private HoaDon hoaDon;
 
-    public Phong(String ten, boolean conTrong) {
+    public Phong(String ten) {
         this.ten = ten;
-        this.conTrong = conTrong;
+        this.conTrong = true;
         this.hopDong = null;
         this.hoaDon = null;
     }
@@ -20,11 +20,13 @@ public abstract class Phong {
     public void taoHoaDon(HoaDon hoaDon) {
         this.hoaDon = hoaDon;
         this.hopDong = null;
+        this.conTrong = true;
     }
 
     public void taoHopDong(HopDong hopDong) {
         this.hoaDon = null;
         this.hopDong = hopDong;
+        this.conTrong = false;
     }
 
     public String getTen() {

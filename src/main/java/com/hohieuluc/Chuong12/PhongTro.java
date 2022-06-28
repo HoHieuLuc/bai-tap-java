@@ -2,8 +2,8 @@ package com.hohieuluc.Chuong12;
 
 public class PhongTro extends Phong {
 
-    public PhongTro(String ten, boolean conTrong) {
-        super(ten, conTrong);
+    public PhongTro(String ten) {
+        super(ten);
     }
 
     @Override

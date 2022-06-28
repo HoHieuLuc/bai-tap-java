@@ -6,8 +6,8 @@ public class PhongKhachSan extends Phong implements CoHangHoa {
     private String tienNghi;
     private ArrayList<HangHoa> hangHoas;
 
-    public PhongKhachSan(String ten, boolean conTrong, String tienNghi) {
-        super(ten, conTrong);
+    public PhongKhachSan(String ten, String tienNghi) {
+        super(ten);
         this.tienNghi = tienNghi;
         this.hangHoas = new ArrayList<>();
     }
