@@ -10,32 +10,29 @@ public class TestNhaTroDBService {
     public static void main(String[] args) throws SQLException {
         NhaTroDBService nhaTroDBService = new NhaTroDBService();
 
-        nhaTroDBService.themPhong(new PhongEntity("P001", "Phòng 1",
-                "THUONG", 100, 1));
-        nhaTroDBService.themPhong(new PhongEntity("P002", "Phòng 2",
-                "THUONG", 50, 1));
-        nhaTroDBService.themPhong(new PhongEntity("P003", "Phòng 3",
-                "THUONG", 120, 1));
+        nhaTroDBService.themPhong(new PhongEntity(
+                "P001", "Phòng 1", "THUONG", 100, 1));
+        nhaTroDBService.themPhong(new PhongEntity(
+                "P002", "Phòng 2", "THUONG", 200, 1));
+        nhaTroDBService.themPhong(new PhongEntity(
+                "P003", "Phòng 3", "VIP", 300, 1));
 
-        ArrayList<PhongEntity> tatCaPhong = nhaTroDBService.getPhong();
-
-        for (PhongEntity phong : tatCaPhong) {
-            System.out.println(phong.toString());
+        ArrayList<PhongEntity> phongTros = nhaTroDBService.getPhong();
+        for (PhongEntity phongTro : phongTros) {
+            System.out.println(phongTro.toString());
         }
 
         nhaTroDBService.capNhatTrangThai("P001", 2);
         nhaTroDBService.capNhatTrangThai("P002", 3);
 
-        ArrayList<PhongEntity> phongChuaThue = nhaTroDBService.getPhong(1);
-
-        for (PhongEntity phong : phongChuaThue) {
-            System.out.println(phong.toString());
+        ArrayList<PhongEntity> phongChuaChoThue = nhaTroDBService.getPhong(1);
+        for (PhongEntity phongTro : phongChuaChoThue) {
+            System.out.println(phongTro.toString());
         }
 
-        Collections.sort(tatCaPhong);
-
-        for (PhongEntity phong : tatCaPhong) {
-            System.out.println(phong.toString());
+        Collections.sort(phongTros);
+        for (PhongEntity phongTro : phongTros) {
+            System.out.println(phongTro.toString());
         }
 
         ConnectDB.close();
