@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.hohieuluc.Chuong14.Entity.PhongEntity;
-import com.hohieuluc.Chuong14.Entity.PhongTroEntity;
 
 public class NhaTroDBService {
     private Connection conn = null;
@@ -22,23 +21,28 @@ public class NhaTroDBService {
 
     public int themPhong(PhongEntity phong) {
         try {
-            String sql = "INSERT INTO phong(loaiPhong, dienTich) VALUES(?, ?)";
+            String sql = "INSERT INTO phong(maPhong, tenPhong, loaiPhong, dienTich, trangThai)"
+                    + " VALUES(?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
 
-            preparedStatement.setString(1, phong.getLoaiPhong());
-            preparedStatement.setDouble(2, phong.getDienTich());
+            preparedStatement.setString(1, phong.getMaPhong());
+            preparedStatement.setString(2, phong.getTenPhong());
+            preparedStatement.setString(3, phong.getLoaiPhong());
+            preparedStatement.setDouble(4, phong.getDienTich());
+            preparedStatement.setLong(5, phong.getTrangThai());
+            preparedStatement.executeUpdate();
 
-            return preparedStatement.executeUpdate();
+            return 0;
         } catch (SQLException e) {
             return 1;
         }
     }
 
-    public PhongEntity getPhong(long id) {
+    public PhongEntity getPhong(String maPhong) {
         try {
-            String sql = "SELECT * FROM phong WHERE id = ?";
+            String sql = "SELECT * FROM phong WHERE maPhong = ?";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setLong(1, id);
+            preparedStatement.setString(1, maPhong);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -48,8 +52,11 @@ public class NhaTroDBService {
 
             PhongEntity phongEntity = new PhongEntity(
                     resultSet.getLong("id"),
+                    resultSet.getString("maPhong"),
+                    resultSet.getString("tenPhong"),
                     resultSet.getString("loaiPhong"),
-                    resultSet.getDouble("dienTich"));
+                    resultSet.getDouble("dienTich"),
+                    resultSet.getLong("trangThai"));
 
             return phongEntity;
         } catch (SQLException e) {
@@ -68,8 +75,11 @@ public class NhaTroDBService {
             while (resultSet.next()) {
                 PhongEntity phongEntity = new PhongEntity(
                         resultSet.getLong("id"),
+                        resultSet.getString("maPhong"),
+                        resultSet.getString("tenPhong"),
                         resultSet.getString("loaiPhong"),
-                        resultSet.getDouble("dienTich"));
+                        resultSet.getDouble("dienTich"),
+                        resultSet.getLong("trangThai"));
                 phongEntities.add(phongEntity);
             }
 
@@ -79,29 +89,27 @@ public class NhaTroDBService {
         }
     }
 
-    public ArrayList<PhongTroEntity> getPhong(int trangThai) {
+    public ArrayList<PhongEntity> getPhong(int trangThai) {
         try {
-            String sql = "SELECT * FROM phongTro WHERE trangThai = ?";
+            String sql = "SELECT * FROM phong WHERE trangThai = ?";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setInt(1, trangThai);
 
             ResultSet resultSet = preparedStatement.executeQuery();
-            ArrayList<PhongTroEntity> phongTroEntities = new ArrayList<>();
+            ArrayList<PhongEntity> phongs = new ArrayList<>();
 
             while (resultSet.next()) {
-                PhongTroEntity phongTroEntity = new PhongTroEntity(
+                PhongEntity phong = new PhongEntity(
                         resultSet.getLong("id"),
-                        resultSet.getLong("phongId"),
                         resultSet.getString("maPhong"),
                         resultSet.getString("tenPhong"),
-                        resultSet.getDouble("giaThang"),
-                        resultSet.getDouble("giaDien"),
-                        resultSet.getDouble("giaNuoc"),
-                        resultSet.getInt("trangThai"));
-                phongTroEntities.add(phongTroEntity);
+                        resultSet.getString("loaiPhong"),
+                        resultSet.getDouble("dienTich"),
+                        resultSet.getLong("trangThai"));
+                phongs.add(phong);
             }
 
-            return phongTroEntities;
+            return phongs;
         } catch (SQLException e) {
             return null;
         }
@@ -109,34 +117,13 @@ public class NhaTroDBService {
 
     public int capNhatTrangThai(String maPhong, int trangThai) {
         try {
-            String sql = "UPDATE phongTro SET trangThai = ? WHERE maPhong = ?";
+            String sql = "UPDATE phong SET trangThai = ? WHERE maPhong = ?";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
 
             preparedStatement.setInt(1, trangThai);
             preparedStatement.setString(2, maPhong);
 
-            return preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            return 1;
-        }
-    }
-
-    public int themPhongTro(PhongEntity phong, PhongTroEntity phongTro) {
-        try {
-            String sql = "INSERT INTO phongtro(phongId, maPhong, tenPhong, "
-                    + "giaThang, giaDien, giaNuoc, trangThai) VALUES(?, ?, ?, ?, ?, ?, ?)";
-
-            PreparedStatement preparedStatement = conn.prepareStatement(sql);
-
-            preparedStatement.setLong(1, phongTro.getPhongId());
-            preparedStatement.setString(2, phongTro.getMaPhong());
-            preparedStatement.setString(3, phongTro.getTenPhong());
-            preparedStatement.setDouble(4, phongTro.getGiaThang());
-            preparedStatement.setDouble(5, phongTro.getGiaDien());
-            preparedStatement.setDouble(6, phongTro.getGiaNuoc());
-            preparedStatement.setLong(7, phongTro.getTrangThai());
-
-            return preparedStatement.executeUpdate();
+            return preparedStatement.executeUpdate() == 0 ? 1 : 0;
         } catch (SQLException e) {
             return 1;
         }
