@@ -10,3 +10,4 @@
 - phương thức khởi tạo khách hàng với id tăng tự động và phương thức khởi tạo khách hàng với id tùy chọn
 
 # Bài 4. Hãy cho ví dụ sự cần thiết phải ngăn cấm không cho tái định nghĩa một phương thức?
+- phương thức bán máy tính chỉ chấp nhận thanh toán bằng thẻ ngân hàng abcxyzBank

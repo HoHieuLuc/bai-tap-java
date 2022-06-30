@@ -52,7 +52,9 @@ public class KhachHang {
 
     @Override
     public String toString() {
-        return "KhachHang [diaChi=" + diaChi + ", maKhachHang=" + maKhachHang + ", soDienThoai=" + soDienThoai
-                + ", tenKhachHang=" + tenKhachHang + "]";
+        return "Khach hang " + tenKhachHang
+            + ", ma: " + maKhachHang
+            + ", so dien thoai: " + soDienThoai
+            + ", dia chi: " + diaChi;
     }
 }
