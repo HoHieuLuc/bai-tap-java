@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class FileInOutTest {
     final String filename = "D:\\BaiTap\\my-projects\\thuc-tap-java"
@@ -103,7 +102,7 @@ public class FileInOutTest {
     }
 
     public void addCustomer() throws IOException {
-        //ArrayList<Customer> customers = this.getCustomersFromFile();
+        // ArrayList<Customer> customers = this.getCustomersFromFile();
         ArrayList<Customer> customers = new ArrayList<>();
         System.out.println("Nhap thong tin khach hang: ");
         while (true) {
@@ -148,12 +147,12 @@ public class FileInOutTest {
     public void increaseTurnover(String maKhachHang, long sum) throws IOException {
         ArrayList<Customer> customers = this.getCustomersFromFile();
 
-        customers.stream().map(customer -> {
+        for (Customer customer : customers) {
             if (customer.getMaKhachHang().equals(maKhachHang)) {
                 customer.setDoanhSo(customer.getDoanhSo() + sum);
+                break;
             }
-            return customer;
-        }).collect(Collectors.toList());
+        }
 
         this.writeCustomers(customers);
     }
